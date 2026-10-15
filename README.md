@@ -1,4 +1,4 @@
-# Bus Ticket Booking Website Bus Ticket Booking Demo
+# Bus Ticket Booking Website 
 
 ## Files
 - `index.html` — page structure and dialogs
