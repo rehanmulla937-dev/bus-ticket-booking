@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#b91c1c">
+  <title>Bus Ticket Booking Website</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="Bus Ticket Booking Website home"><span class="brand-mark">BT</span><span>Bus Ticket Booking<small>YOUR JOURNEY, SIMPLIFIED</small></span></a>
+    <nav><a href="#search">Book Bus</a><a href="#routes">Popular Routes</a><a href="#my-bookings">My Bookings</a><button class="admin-open" id="adminOpen">Admin Panel ↗</button></nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <span class="eyebrow"><span class="pulse"></span> EXPLORE MAHARASHTRA BY BUS</span>
+        <h1>Explore Maharashtra.<br><span>Travel smarter.</span></h1>
+        <p>Find your bus, choose your seat, and get ready to go. Search selected bus routes connecting major cities across Maharashtra.</p>
+        <div class="hero-points"><span>✓ Easy seat selection</span><span>✓ Instant e-ticket</span><span>✓ Return journeys</span></div>
+      </div>
+      <div class="hero-art" role="img" aria-label="Red Maharashtra state transport bus travelling on a scenic highway">
+        <div class="sun"></div><div class="road"></div>
+        <div class="bus-illustration"><div class="bus-window"></div><div class="bus-window second"></div><div class="bus-front"></div><div class="bus-wheel one"></div><div class="bus-wheel two"></div><div class="bus-line"></div></div>
+        <div class="city-label">LATUR <span>→</span> PUNE</div>
+      </div>
+    </section>
+
+    <section class="search-wrap" id="search">
+      <div class="section-kicker">PLAN YOUR TRIP</div>
+      <h2>Where do you want to go?</h2>
+      <form id="searchForm" class="search-form">
+        <label class="field"><span>FROM</span><select id="fromCity" required></select></label>
+        <button type="button" class="swap" id="swapCities" title="Swap cities" aria-label="Swap cities">⇄</button>
+        <label class="field"><span>TO</span><select id="toCity" required></select></label>
+        <label class="field"><span>JOURNEY DATE</span><input id="journeyDate" type="date" required></label>
+        <label class="return-check"><input type="checkbox" id="returnToggle"><span>Return journey</span></label>
+        <label class="field return-field hidden" id="returnField"><span>RETURN DATE</span><input id="returnDate" type="date"></label>
+        <button class="primary-btn search-btn" type="submit">Search buses <span>→</span></button>
+      </form>
+      <p class="hint">Demo project: schedules and fares are sample data, not live operator availability.</p>
+    </section>
+
+    <section class="results-section hidden" id="resultsSection">
+      <div class="results-head"><div><div class="section-kicker">AVAILABLE OPTIONS</div><h2 id="resultsTitle">Buses for your route</h2></div><span class="result-count" id="resultCount"></span></div>
+      <div class="filter-row"><label>Search operator <input id="operatorFilter" type="search" placeholder="e.g. Shivneri" aria-label="Search bus operator"></label><label>Maximum fare (₹) <input id="maxFareFilter" type="number" min="0" step="50" placeholder="Any fare" aria-label="Maximum fare"></label><label>Bus type <select id="typeFilter"><option value="all">All types</option><option>AC Sleeper</option><option>Non-AC Seater</option><option>AC Seater</option></select></label><label>Sort by <select id="sortFilter"><option value="price">Lowest fare</option><option value="time">Departure time</option></select></label></div>
+      <div id="busList" class="bus-list"></div>
+    </section>
+
+    <section class="routes-section" id="routes">
+      <div class="section-heading"><div><div class="section-kicker">MAHARASHTRA CONNECTIONS</div><h2>Popular bus routes</h2></div><p>Choose a popular route or search between the cities in the dropdowns.</p></div>
+      <div class="route-grid">
+        <button class="route-card" data-destination="Pune"><div class="route-icon">🏙️</div><div><span class="route-label">MAHARASHTRA</span><h3>Latur <span>→</span> Pune</h3><p>Return journey available</p></div><span class="route-arrow">↗</span></button>
+        <button class="route-card" data-destination="Mumbai"><div class="route-icon">🌆</div><div><span class="route-label">MAHARASHTRA</span><h3>Latur <span>→</span> Mumbai</h3><p>Return journey available</p></div><span class="route-arrow">↗</span></button>
+        <button class="route-card" data-destination="Solapur"><div class="route-icon">🌇</div><div><span class="route-label">MAHARASHTRA</span><h3>Latur <span>→</span> Solapur</h3><p>Return journey available</p></div><span class="route-arrow">↗</span></button>
+      </div>
+    </section>
+
+    <section class="my-bookings" id="my-bookings">
+      <div class="section-heading"><div><div class="section-kicker">YOUR TRAVEL HISTORY</div><h2>My bookings</h2></div><button class="outline-btn" id="refreshBookings">Refresh ↻</button></div>
+      <div id="bookingList" class="booking-list"><div class="empty-state"><span>🎟️</span><strong>No bookings yet</strong><p>Your confirmed demo tickets will appear here.</p></div></div>
+    </section>
+
+    <section class="reviews-help" id="reviews-help">
+      <div class="section-heading"><div><div class="section-kicker">FEEDBACK & SUPPORT</div><h2>Reviews & help</h2></div><p>Share feedback or read quick answers.</p></div>
+      <div class="review-help-grid">
+        <div class="review-panel"><h3>Leave a review</h3><p class="panel-subtitle">Demo feedback is saved only in this browser.</p>
+          <form id="reviewForm" class="review-form"><label class="field"><span>YOUR NAME</span><input id="reviewName" maxlength="60" required placeholder="Enter your name"></label><label class="field"><span>RATING</span><select id="reviewRating"><option value="5">★★★★★ - Excellent</option><option value="4">★★★★ - Good</option><option value="3">★★★ - Okay</option><option value="2">★★ - Needs improvement</option><option value="1">★ - Poor</option></select></label><label class="field"><span>YOUR REVIEW</span><textarea id="reviewMessage" rows="3" maxlength="400" required placeholder="Tell us about your experience"></textarea></label><button class="primary-btn" type="submit">Submit review</button></form><div id="reviewList" class="review-list"></div>
+        </div>
+        <div class="help-panel"><h3>Help & frequently asked questions</h3><p class="panel-subtitle">This student demo does not contact a real support team.</p>
+          <details open><summary>Is this a real bus booking service?</summary><p>No. It is a frontend college project with sample routes, fares and bookings.</p></details><details><summary>Where are my bookings saved?</summary><p>In this browser's LocalStorage. They are not shared with another device.</p></details><details><summary>Is payment collected?</summary><p>No payment is collected and no real bus seat is reserved.</p></details>
+          <h3 class="support-title">Send a demo support request</h3><form id="helpForm" class="review-form"><label class="field"><span>EMAIL</span><input id="helpEmail" type="email" required placeholder="you@example.com"></label><label class="field"><span>MESSAGE</span><textarea id="helpMessage" rows="3" maxlength="400" required placeholder="How can we help?"></textarea></label><button class="primary-btn" type="submit">Submit request</button></form>
+        </div>
+      </div>
+    </section>
+
+    <section class="features">
+      <div><span class="feature-icon">🪑</span><h3>Choose your seat</h3><p>View the seat layout and select the seats you prefer.</p></div>
+      <div><span class="feature-icon">↔️</span><h3>Return trips</h3><p>Plan your onward and return journeys in one flow.</p></div>
+      <div><span class="feature-icon">🎫</span><h3>Ticket ready</h3><p>Review your booking and print your demo ticket.</p></div>
+    </section>
+  </main>
+
+  <footer><a class="brand footer-brand" href="#"><span class="brand-mark">BT</span><span>Bus Ticket Booking<small>YOUR JOURNEY, SIMPLIFIED</small></span></a><p>Student project demonstration · Not an actual bus operator</p><span>© <span id="year"></span> Bus Ticket Booking Website</span><p class="site-data-note">Schedules and fares shown are indicative examples for this website and may differ from actual operator services.</p>
+  </footer>
+
+  <!-- Booking modal -->
+  <div class="modal-backdrop hidden" id="bookingModal" role="dialog" aria-modal="true" aria-labelledby="bookingTitle">
+    <div class="modal wide-modal">
+      <button class="modal-close" data-close="bookingModal" aria-label="Close">×</button>
+      <div class="modal-step" id="modalStep">STEP 1 OF 2</div>
+      <h2 id="bookingTitle">Choose your seats</h2>
+      <p class="modal-subtitle" id="selectedBusText"></p>
+      <div class="seat-layout-wrap">
+        <div class="seat-legend"><span><i class="seat-dot available"></i> Available</span><span><i class="seat-dot chosen"></i> Selected</span><span><i class="seat-dot booked"></i> Booked</span></div>
+        <div class="driver-row"><span>FRONT</span><span>◉ Driver</span></div>
+        <div id="seatGrid" class="seat-grid"></div>
+      </div>
+      <div class="seat-summary"><div><span>Selected seats</span><strong id="selectedSeatsText">None</strong></div><div><span>Total fare</span><strong id="seatTotal">₹0</strong></div></div>
+      <button class="primary-btn full-btn" id="continueBooking" disabled>Continue to passenger details →</button>
+      <div id="passengerPanel" class="passenger-panel hidden">
+        <h3>Passenger details</h3>
+        <form id="passengerForm">
+          <div class="form-grid"><label class="field"><span>FULL NAME</span><input id="passengerName" required maxlength="80" placeholder="Enter passenger name"></label><label class="field"><span>AGE</span><input id="passengerAge" type="number" min="1" max="110" required placeholder="Age"></label><label class="field"><span>MOBILE NUMBER</span><input id="passengerPhone" type="tel" pattern="[0-9]{10}" required placeholder="10-digit mobile number"></label><label class="field"><span>BOARDING POINT</span><select id="boardingPoint"><option>Central Bus Stand</option><option>City Bus Stop</option><option>Highway Pickup Point</option></select></label></div>
+          <div class="coupon-row"><label class="field"><span>COUPON CODE</span><input id="couponCode" placeholder="Enter FIRST10 or RETURN15" autocomplete="off"></label><button type="button" class="outline-btn" id="applyCoupon">Apply coupon</button></div>
+          <p class="coupon-message" id="couponMessage">Demo coupons: FIRST10 (10% off) · RETURN15 (15% off on return bookings)</p>
+          <div class="fare-breakdown"><div><span>Base fare</span><strong id="baseFare">₹0</strong></div><div><span>Discount</span><strong id="discountFare">−₹0</strong></div></div>
+          <div class="checkout-total"><span>Payable demo amount</span><strong id="passengerTotal">₹0</strong></div>
+          <button class="primary-btn full-btn" type="submit">Confirm demo booking</button>
+          <p class="hint">No payment is collected. This is a frontend demonstration.</p>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ticket modal -->
+  <div class="modal-backdrop hidden" id="ticketModal" role="dialog" aria-modal="true" aria-labelledby="ticketTitle">
+    <div class="modal ticket-modal"><button class="modal-close" data-close="ticketModal" aria-label="Close">×</button><div id="ticketContent"></div><div class="ticket-actions"><button class="secondary-btn" id="downloadTicket" type="button">Download ticket</button><button class="outline-btn" id="printTicket">Print / Save PDF</button><button class="primary-btn" data-close="ticketModal">Done</button></div></div>
+  </div>
+
+  <!-- Admin modal -->
+  <div class="modal-backdrop hidden" id="adminModal" role="dialog" aria-modal="true" aria-labelledby="adminTitle">
+    <div class="modal admin-modal"><button class="modal-close" data-close="adminModal" aria-label="Close">×</button><div class="section-kicker">MANAGE YOUR DEMO WEBSITE</div><h2 id="adminTitle">Admin dashboard</h2><p class="modal-subtitle">Add and manage sample routes. This demo has no secure admin authentication.</p>
+      <section class="admin-design-preview">
+        <div class="analytics-heading"><h3>Homepage Design Preview</h3><span>Uploaded design</span></div>
+        <p class="modal-subtitle">Reference image for the Bus Ticket Booking Website homepage.</p>
+        <img src="homepage-design-preview.png" alt="Homepage design preview showing Maharashtra bus, booking search and popular routes" loading="lazy">
+      </section>
+      <div class="admin-stats"><div><span>ROUTES</span><strong id="adminRouteCount">0</strong></div><div><span>ALL BOOKINGS</span><strong id="adminBookingCount">0</strong></div><div><span>ACTIVE BOOKINGS</span><strong id="adminConfirmedCount">0</strong></div><div><span>DEMO BOOKING VALUE</span><strong id="adminRevenue">₹0</strong></div></div>
+      <div class="analytics-panel"><div class="analytics-heading"><h3>Route booking analytics</h3><span>Local demo data</span></div><div class="analytics-bars" id="analyticsBars"></div></div>
+      <h3>Add a new route</h3>
+      <form id="routeForm" class="admin-form"><label class="field"><span>FROM</span><input id="adminFrom" required value="Latur"></label><label class="field"><span>TO</span><input id="adminTo" required placeholder="Destination city"></label><label class="field"><span>BUS / OPERATOR NAME</span><input id="adminOperator" placeholder="e.g. Local Travels (demo)"></label><label class="field"><span>BUS TYPE</span><select id="adminType"><option>AC Sleeper</option><option>Non-AC Seater</option><option>AC Seater</option></select></label><label class="field"><span>FARE (₹)</span><input id="adminFare" type="number" min="1" required placeholder="800"></label><label class="field"><span>DEPARTURE</span><input id="adminDeparture" type="time" required value="21:00"></label><label class="field"><span>DURATION</span><input id="adminDuration" required value="6h 30m"></label><label class="field"><span>ARRIVAL TIME</span><input id="adminArrival" type="time" required value="03:30"></label><button class="primary-btn full-btn" type="submit">＋ Add route</button></form>
+      <section class="admin-city-coverage">
+        <div class="analytics-heading"><h3>Maharashtra City Coverage</h3><span>Sample route network</span></div>
+        <p class="modal-subtitle">Cities connected by the routes in this demo. The exact bus schedule and availability are not live.</p>
+        <div id="adminCityCoverage" class="admin-city-chips"></div>
+      </section>
+      <h3 class="admin-list-title">Current routes</h3><div id="adminRouteList" class="admin-route-list"></div>
+      <h3 class="admin-list-title">Recent bookings</h3><div id="adminBookingList" class="admin-route-list"></div>
+    </div>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+  <script src="script.js"></script>
+</body>
+</html>
